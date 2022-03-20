@@ -51,13 +51,13 @@ int insereNaFrente(tipoLista *listaEnc, char* valor[]){
 return 1;
 }
 
-int buscaDado(tipoLista *listaEnc, int valor){
+int buscaDado(tipoLista *listaEnc, char* valor[]){
     tipoNo *atual;
     int cont=1;
     atual=listaEnc->fim;
     do{
         atual=atual->proxNo;
-        if(atual->dado == valor)
+        if(strcmp(atual->dado, valor) == 0)
            return cont;
         cont++;
     }while(atual != listaEnc->fim);
@@ -67,11 +67,11 @@ int buscaDado(tipoLista *listaEnc, int valor){
 
 void main(){
 tipoLista lista;
-int op, resp;
-char num[30];
+int op, resp, cont = 0;
+char num[30],sn;
 inicializa(&lista);
 do{
-    printf("\nMenu\n\n 1 - Insere elemento em lista vazia");
+    printf("\nMenu\n\n 1 - CADASTRAR CLIENTES NO SORTEIO.");
     printf("\n 2 - Insere na frente da lista");
     printf("\n 3 - Buscar dado na lista");
     printf("\n10 - Exibe a lista");
@@ -79,17 +79,23 @@ do{
     printf("\nDigite sua opcao: ");
     scanf("%d",&op);
     switch(op){
-    case 1: printf("\nDigite o elemento que deseja inserir:");
-          scanf("%s",num);
-          insereListaVazia(&lista, num);
+    case 1:
+        do{
+            printf("\nDigite o nome do cliente: ");
+            scanf("%s",num);
+            cont == 0?insereListaVazia(&lista, num): insereNaFrente(&lista, num);
+            cont++;
+            printf("\nDeseja adicionar outro cliente? S/N");
+            scanf("%s", &sn);
+        }while(toupper(sn) != 'N');
+
           break;
     case 2: printf("\nDigite o elemento que deseja inserir:");
           scanf("%s",num);
           insereNaFrente(&lista, num);
-          printf("%d", lista.quant);
           break;
     case 3: printf("\nDigite o elemento que deseja buscar:");
-          scanf("%d",&num);
+          scanf("%s",num);
           if(resp = buscaDado(&lista, num))
             printf("\nO dado foi encontrado na posicao %d",resp);
           else
