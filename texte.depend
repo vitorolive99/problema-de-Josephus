@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1647661276 source:d:\sistema de informação\estrutura de dados\texte\main.c
+	<stdio.h>
+	<string.h>
+
